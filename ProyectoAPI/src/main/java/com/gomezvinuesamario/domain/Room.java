@@ -1,4 +1,4 @@
-package domain;
+package com.gomezvinuesamario.domain;
 
 import lombok.Builder;
 import lombok.Data;

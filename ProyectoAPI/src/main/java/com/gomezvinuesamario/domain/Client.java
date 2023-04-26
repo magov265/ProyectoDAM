@@ -1,4 +1,4 @@
-package domain;
+package com.gomezvinuesamario.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ public class Client {
     private String name;
     private String lastname; // We consider lastname are together
     private String phone;
-    private String card_id;
+    private String cardId;
     private Date birthday;
 
 }
