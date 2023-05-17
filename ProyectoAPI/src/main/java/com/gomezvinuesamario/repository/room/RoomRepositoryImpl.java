@@ -1,6 +1,11 @@
-package com.gomezvinuesamario.repository;
+package com.gomezvinuesamario.repository.room;
 
+import com.gomezvinuesamario.domain.Employee;
 import com.gomezvinuesamario.domain.Room;
+import com.gomezvinuesamario.repository.model.EmployeeDocument;
+import com.gomezvinuesamario.repository.model.RoomDocument;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,13 +14,14 @@ import java.util.List;
 public class RoomRepositoryImpl implements RoomRepository{
 
 
-    // Falta implementar el @Mapper
 
+    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
     private MongoRoomRepository mongoRoomRepository;
 
     @Override
     public Room saveRoom(Room room) {
-        return null;
+        return modelMapper.map(mongoRoomRepository.insert(modelMapper.map(room, RoomDocument.class)), Room.class);
     }
 
     @Override

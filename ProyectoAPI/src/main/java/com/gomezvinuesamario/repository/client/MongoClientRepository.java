@@ -1,4 +1,4 @@
-package com.gomezvinuesamario.repository;
+package com.gomezvinuesamario.repository.client;
 
 import com.gomezvinuesamario.repository.model.ClientDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;

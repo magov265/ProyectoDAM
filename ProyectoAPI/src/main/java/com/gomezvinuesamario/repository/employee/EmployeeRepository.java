@@ -1,4 +1,4 @@
-package com.gomezvinuesamario.repository;
+package com.gomezvinuesamario.repository.employee;
 
 import com.gomezvinuesamario.domain.Employee;
 import org.springframework.stereotype.Component;

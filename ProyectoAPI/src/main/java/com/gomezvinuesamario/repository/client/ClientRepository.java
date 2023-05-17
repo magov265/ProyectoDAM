@@ -1,4 +1,4 @@
-package com.gomezvinuesamario.repository;
+package com.gomezvinuesamario.repository.client;
 
 import com.gomezvinuesamario.domain.Client;
 import org.springframework.stereotype.Component;

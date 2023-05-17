@@ -1,6 +1,10 @@
-package com.gomezvinuesamario.repository;
+package com.gomezvinuesamario.repository.employee;
 
 import com.gomezvinuesamario.domain.Employee;
+import com.gomezvinuesamario.repository.client.MongoClientRepository;
+import com.gomezvinuesamario.repository.model.EmployeeDocument;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,13 +12,14 @@ import java.util.List;
 @Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository{
 
-    // Falta implementar el @Mapper
-    private MongoClientRepository mongoClientRepository;
+    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private MongoEmployeeRepository mongoEmployeeRepository;
 
 
     @Override
-    public Employee saveEmployee(Employee client) {
-        return null;
+    public Employee saveEmployee(Employee employee) {
+        return modelMapper.map(mongoEmployeeRepository.insert(modelMapper.map(employee, EmployeeDocument.class)),Employee.class);
     }
 
     @Override
