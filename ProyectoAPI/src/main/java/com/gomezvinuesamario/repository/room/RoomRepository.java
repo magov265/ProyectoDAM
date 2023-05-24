@@ -1,11 +1,10 @@
 package com.gomezvinuesamario.repository.room;
 
 import com.gomezvinuesamario.domain.Room;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
 public interface RoomRepository {
 
     Room saveRoom(Room room);

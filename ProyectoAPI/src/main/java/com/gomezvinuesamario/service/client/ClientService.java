@@ -1,11 +1,11 @@
-package com.gomezvinuesamario.repository.client;
+package com.gomezvinuesamario.service.client;
 
 import com.gomezvinuesamario.domain.Client;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ClientRepository {
+public interface ClientService {
 
     Client saveClient(Client client);
 

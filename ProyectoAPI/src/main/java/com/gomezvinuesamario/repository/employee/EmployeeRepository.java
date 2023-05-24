@@ -1,11 +1,10 @@
 package com.gomezvinuesamario.repository.employee;
 
 import com.gomezvinuesamario.domain.Employee;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
 public interface EmployeeRepository {
     Employee saveEmployee(Employee client);
 

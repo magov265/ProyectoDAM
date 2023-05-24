@@ -1,7 +1,6 @@
 package com.gomezvinuesamario.repository.employee;
 
 import com.gomezvinuesamario.domain.Employee;
-import com.gomezvinuesamario.repository.client.MongoClientRepository;
 import com.gomezvinuesamario.repository.model.EmployeeDocument;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

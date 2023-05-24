@@ -6,7 +6,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class ClientRepositoryImpl implements ClientRepository {
@@ -30,13 +32,22 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Client getClient(String cardID) {
-        return null;
+    public Client getClient(final String cardId) {
+        ClientDocument clientDocument = mongoClientRepository.findClientDocumentByCardIdEquals(cardId);
+        if (Objects.nonNull(clientDocument)){
+            return modelMapper.map(clientDocument, Client.class);
+        }else{
+            return null;
+        }
     }
 
     @Override
     public List<Client> getAllClients() {
-        return null;
+        List<Client> clientsDomain = new ArrayList<>();
+        for(ClientDocument clientDocument : mongoClientRepository.findAll()) {
+            clientsDomain.add(modelMapper.map(clientDocument,Client.class));
+        }
+        return clientsDomain;
     }
 
     @Override
