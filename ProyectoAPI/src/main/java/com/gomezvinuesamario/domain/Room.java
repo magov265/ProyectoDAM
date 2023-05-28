@@ -15,6 +15,6 @@ public class Room {
     private String roomNumber;
     // private TierRoom tier;
     private String clientId;
-    private Date reservationStart;
-    private Date reservationEnd;
+
+    private boolean available;
 }

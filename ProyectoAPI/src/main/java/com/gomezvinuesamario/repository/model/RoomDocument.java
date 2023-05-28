@@ -21,10 +21,10 @@ public class RoomDocument {
     private String id; // auto-generated ID
 
     private String clientId;
-    private Date reservationStart;
-    private Date reservationEnd;
 
     @Indexed(unique = true)
     private String roomNumber;
+
+    private boolean available;
 
 }

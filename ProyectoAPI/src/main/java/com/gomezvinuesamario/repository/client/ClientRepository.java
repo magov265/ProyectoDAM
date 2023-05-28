@@ -15,6 +15,6 @@ public interface ClientRepository {
 
     Client updateClient(Client client);
 
-    Client deleteClient(Client client);
+    Client deleteClient(String cardID);
 
 }

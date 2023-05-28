@@ -30,11 +30,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client updateClient(Client client) {
-        return null;
+
+        return clientRepository.updateClient(client);
     }
 
     @Override
-    public Client deleteClient(Client client) {
-        return null;
+    public Client deleteClient(String cardID) {
+
+        return clientRepository.deleteClient(cardID);
     }
 }

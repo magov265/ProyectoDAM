@@ -6,10 +6,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
-public class EmployeeRepositoryImpl implements EmployeeRepository{
+public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private ModelMapper modelMapper = new ModelMapper();
     @Autowired
@@ -18,26 +20,45 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 
     @Override
     public Employee saveEmployee(Employee employee) {
-        return modelMapper.map(mongoEmployeeRepository.insert(modelMapper.map(employee, EmployeeDocument.class)),Employee.class);
+        return modelMapper.map(mongoEmployeeRepository.insert(modelMapper.map(employee, EmployeeDocument.class)), Employee.class);
     }
 
     @Override
-    public Employee getEmployeeByName(String name) {
-        return null;
+    public Employee getEmployee(String identifier) {
+        EmployeeDocument employeeDocument = mongoEmployeeRepository.findEmployeeDocumentByIdentifierEquals(identifier);
+        if (Objects.nonNull(employeeDocument)) {
+            return modelMapper.map(employeeDocument, Employee.class);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public List<Employee> getAllEmployees() {
+        List<Employee> employeesDomain = new ArrayList<>();
+        for (EmployeeDocument employeeDocument : mongoEmployeeRepository.findAll()) {
+            employeesDomain.add(modelMapper.map(employeeDocument, Employee.class));
+        }
+        return employeesDomain;
+    }
+
+    @Override
+    public Employee updateEmployee(Employee employee) {
+        if (Objects.nonNull(getEmployee(employee.getIdentifier()))) {
+            return modelMapper.map(mongoEmployeeRepository.save(modelMapper.map(employee, EmployeeDocument.class)), Employee.class);
+        }
         return null;
     }
 
     @Override
-    public Employee updateEmployee(Employee client) {
-        return null;
-    }
+    public Employee deleteEmployee(String identifier) {
 
-    @Override
-    public Employee deleteEmployee(Employee client) {
+        EmployeeDocument employeeDocument = mongoEmployeeRepository.deleteEmployeeDocumentByIdentifierEquals(identifier);
+
+        if (Objects.nonNull(employeeDocument)) {
+            return modelMapper.map(employeeDocument, Employee.class);
+        }
         return null;
+
     }
 }
