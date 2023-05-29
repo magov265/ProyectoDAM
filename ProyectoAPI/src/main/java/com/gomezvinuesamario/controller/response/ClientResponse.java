@@ -1,4 +1,4 @@
-package com.gomezvinuesamario.domain;
+package com.gomezvinuesamario.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +11,13 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Client {
+public class ClientResponse {
+
     private String name;
     private String lastname; // We consider lastname are together
     private String phone;
     private String cardId;
     private Date birthday;
-
-    private Room room;
+    private RoomResponse room;
 
 }

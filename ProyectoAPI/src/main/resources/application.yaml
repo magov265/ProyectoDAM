@@ -6,3 +6,4 @@ spring:
       database: admin
       password: bdung
       username: mongoadmin
+      auto-index-creation: true

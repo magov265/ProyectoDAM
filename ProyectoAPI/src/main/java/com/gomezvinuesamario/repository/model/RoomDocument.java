@@ -18,13 +18,10 @@ import java.util.Date;
 public class RoomDocument {
 
     @Id
-    private String id; // auto-generated ID
+    private String roomId; // auto-generated ID
 
-    private String clientId;
-
-    @Indexed(unique = true)
     private String roomNumber;
 
-    private boolean available;
+    private Boolean available;
 
 }

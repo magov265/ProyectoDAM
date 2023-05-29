@@ -9,11 +9,11 @@ public interface RoomRepository {
 
     Room saveRoom(Room room);
 
-    Room getRoom(String roomNumber);
+    Room getRoom(String roomId);
 
     List<Room> getAllRooms();
 
     Room updateRoom(Room room);
 
-    Room deleteRoom(Room room);
+    Room deleteRoom(String roomId);
 }

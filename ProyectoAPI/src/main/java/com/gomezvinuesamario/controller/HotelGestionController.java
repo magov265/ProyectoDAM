@@ -1,5 +1,7 @@
 package com.gomezvinuesamario.controller;
 
+import com.gomezvinuesamario.controller.request.ClientRequest;
+import com.gomezvinuesamario.controller.response.ClientResponse;
 import com.gomezvinuesamario.domain.Client;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,15 +13,15 @@ import java.util.List;
 public interface HotelGestionController {
 
     // Client methods
-    ResponseEntity<Client> saveClient(@RequestBody Client client);
+    ResponseEntity<ClientResponse> saveClient(@RequestBody ClientRequest client);
 
-    ResponseEntity<List<Client>> getAllClients();
+    ResponseEntity<List<ClientResponse>> getAllClients();
 
-    ResponseEntity <Client> getClientByCardId(@RequestParam String cardID);
+    ResponseEntity <ClientResponse> getClientByCardId(@RequestParam String cardID);
 
-    ResponseEntity <Client> deleteClient(@RequestParam String cardID);
+    ResponseEntity <ClientResponse> deleteClient(@RequestParam String cardID);
 
-    ResponseEntity <Client> updateClient(@RequestBody Client client);
+    ResponseEntity <ClientResponse> updateClient(@RequestBody ClientRequest client);
 
 
     // Room methods

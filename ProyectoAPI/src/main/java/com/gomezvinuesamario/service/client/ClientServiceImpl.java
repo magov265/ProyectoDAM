@@ -1,11 +1,14 @@
 package com.gomezvinuesamario.service.client;
 
 import com.gomezvinuesamario.domain.Client;
+import com.gomezvinuesamario.domain.Room;
 import com.gomezvinuesamario.repository.client.ClientRepository;
+import com.gomezvinuesamario.repository.room.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -13,9 +16,20 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private RoomRepository roomRepository;
+
     @Override
     public Client saveClient(Client client) {
-        return clientRepository.saveClient(client);
+        Room room = roomRepository.getRoom(client.getRoom().getRoomId());
+
+        if (Objects.nonNull(room)) {
+            client.setRoom(room);
+            return clientRepository.saveClient(client);
+        } else {
+            return null;
+        }
+
     }
 
     @Override

@@ -1,21 +1,18 @@
-package com.gomezvinuesamario.domain;
+package com.gomezvinuesamario.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room {
-
+public class RoomResponse {
     private String roomNumber;
 
     private String roomId;
 
-    private Boolean available;
+    private boolean available;
 }
