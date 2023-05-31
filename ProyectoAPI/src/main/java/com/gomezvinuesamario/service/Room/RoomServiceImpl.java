@@ -3,9 +3,11 @@ package com.gomezvinuesamario.service.Room;
 import com.gomezvinuesamario.domain.Room;
 import com.gomezvinuesamario.repository.room.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RoomServiceImpl implements RoomService{
 
     @Autowired
@@ -34,5 +36,10 @@ public class RoomServiceImpl implements RoomService{
     @Override
     public Room deleteRoom(String roomId) {
         return roomRepository.deleteRoom(roomId);
+    }
+
+    @Override
+    public List<Room> getAllRoomsByAvailability(Boolean isAvailable) {
+        return roomRepository.getAllRoomsByAvailability(isAvailable);
     }
 }

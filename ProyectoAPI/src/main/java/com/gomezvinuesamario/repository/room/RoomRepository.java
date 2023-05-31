@@ -16,4 +16,6 @@ public interface RoomRepository {
     Room updateRoom(Room room);
 
     Room deleteRoom(String roomId);
+
+    List<Room> getAllRoomsByAvailability(Boolean isAvailable);
 }

@@ -56,5 +56,10 @@ public class RoomRepositoryImpl implements RoomRepository {
         return null;
     }
 
+    @Override
+    public List<Room> getAllRoomsByAvailability(Boolean isAvailable) {
+        return roomMapper.roomDocumentListToRoomList(mongoRoomRepository.getAllByAvailableEquals(isAvailable));
+    }
+
 
 }

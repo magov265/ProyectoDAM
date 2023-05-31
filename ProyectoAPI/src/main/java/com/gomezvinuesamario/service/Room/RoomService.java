@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface RoomService {
     Room saveRoom(Room room);
 
@@ -16,4 +15,6 @@ public interface RoomService {
     Room updateRoom(Room room);
 
     Room deleteRoom(String roomId);
+
+    List<Room> getAllRoomsByAvailability(Boolean isAvailable);
 }

@@ -44,10 +44,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Employee updateEmployee(Employee employee) {
-        if (Objects.nonNull(getEmployee(employee.getIdentifier()))) {
-            return modelMapper.map(mongoEmployeeRepository.save(modelMapper.map(employee, EmployeeDocument.class)), Employee.class);
-        }
-        return null;
+        deleteEmployee(employee.getIdentifier());
+        return modelMapper.map(mongoEmployeeRepository.insert(modelMapper.map(employee, EmployeeDocument.class)), Employee.class);
     }
 
     @Override

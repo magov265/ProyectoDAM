@@ -14,5 +14,5 @@ public class RoomResponse {
 
     private String roomId;
 
-    private boolean available;
+    private Boolean available;
 }

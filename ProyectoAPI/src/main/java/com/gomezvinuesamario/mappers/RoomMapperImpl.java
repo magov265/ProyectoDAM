@@ -16,7 +16,7 @@ public class RoomMapperImpl implements RoomMapper {
         return RoomDocument.builder()
                 .roomId(room.getRoomId())
                 .available(room.getAvailable())
-                .roomId(room.getRoomId())
+                .roomNumber(room.getRoomNumber())
                 .build();
     }
 
@@ -48,5 +48,15 @@ public class RoomMapperImpl implements RoomMapper {
         }
 
         return roomList;
+    }
+
+    @Override
+    public List<RoomResponse> roomListToRoomResponseList(List<Room> roomList) {
+        List<RoomResponse> roomResponseList = new ArrayList<>();
+        for (Room room : roomList) {
+            roomResponseList.add(roomToRoomResponse(room));
+        }
+
+        return roomResponseList;
     }
 }

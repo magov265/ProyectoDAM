@@ -1,14 +1,17 @@
 package com.gomezvinuesamario.service.Employee;
 
+import com.gomezvinuesamario.domain.Client;
 import com.gomezvinuesamario.domain.Employee;
+import com.gomezvinuesamario.domain.Room;
 import com.gomezvinuesamario.repository.employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -30,7 +33,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Employee updateEmployee(Employee employee) {
-        return employeeRepository.updateEmployee(employee);
+        Employee employeeToDelete = employeeRepository.getEmployee(employee.getIdentifier());
+        if (Objects.nonNull(employeeToDelete)) {
+            return employeeRepository.updateEmployee(employeeToDelete);
+        }
+        throw new RuntimeException();
     }
 
     @Override

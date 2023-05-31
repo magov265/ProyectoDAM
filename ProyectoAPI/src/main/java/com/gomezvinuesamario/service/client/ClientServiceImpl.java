@@ -1,5 +1,6 @@
 package com.gomezvinuesamario.service.client;
 
+import com.gomezvinuesamario.controller.exception.custom.NotFoundException;
 import com.gomezvinuesamario.domain.Client;
 import com.gomezvinuesamario.domain.Room;
 import com.gomezvinuesamario.repository.client.ClientRepository;
@@ -20,21 +21,33 @@ public class ClientServiceImpl implements ClientService {
     private RoomRepository roomRepository;
 
     @Override
-    public Client saveClient(Client client) {
-        Room room = roomRepository.getRoom(client.getRoom().getRoomId());
-
+    public Client saveClient(final Client client) {
+        final Room room = roomRepository.getRoom(client.getRoom().getRoomId());
         if (Objects.nonNull(room)) {
-            client.setRoom(room);
-            return clientRepository.saveClient(client);
-        } else {
-            return null;
+            if (room.getAvailable()) {
+                client.setRoom(room);
+                final Client clientResult = clientRepository.saveClient(client);
+                if (Objects.nonNull(clientResult)) {
+                    room.setAvailable(false);
+                    roomRepository.updateRoom(room);
+                    clientResult.setRoom(room);
+                }
+                return clientResult;
+            }
         }
+        throw new NotFoundException("¡ERROR!. " +
+                "Something wrong trying to create the client");
 
     }
 
     @Override
-    public Client getClient(String cardID) {
-        return clientRepository.getClient(cardID);
+    public Client getClient(final String cardId) {
+        Client client = clientRepository.getClient(cardId);
+        if (Objects.nonNull(client)){
+            return client;
+        }
+        throw new NotFoundException("¡ERROR!. " +
+                "The client with card ID : "+cardId+" was not found.");
     }
 
     @Override
@@ -43,14 +56,37 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client updateClient(Client client) {
-
-        return clientRepository.updateClient(client);
+    public Client updateClient(final Client client) {
+        final Client oldClient = clientRepository.getClient(client.getCardId());
+        if (Objects.nonNull(oldClient)) {
+            final Room room = roomRepository.getRoom(client.getRoom().getRoomId());
+            if (Objects.nonNull(room)) {
+                if (room.getAvailable()) {
+                    client.setRoom(room);
+                    final Client clientUpdated = clientRepository.updateClient(client);
+                    if (Objects.nonNull(clientUpdated)) {
+                        room.setAvailable(false);
+                        roomRepository.updateRoom(room);
+                        final Room oldRoom = oldClient.getRoom();
+                        oldRoom.setAvailable(true);
+                        roomRepository.updateRoom(oldRoom);
+                        clientUpdated.setRoom(room);
+                    }
+                    return clientUpdated;
+                }
+            }
+        }
+        throw new RuntimeException();
     }
 
     @Override
-    public Client deleteClient(String cardID) {
+    public Client deleteClient(final String cardId) {
+        Client clientDeleted = clientRepository.deleteClient(cardId);
+        Room room = clientDeleted.getRoom();
+        room.setAvailable(true);
+        roomRepository.updateRoom(room);
+        clientDeleted.setRoom(room);
+        return clientDeleted;
 
-        return clientRepository.deleteClient(cardID);
     }
 }

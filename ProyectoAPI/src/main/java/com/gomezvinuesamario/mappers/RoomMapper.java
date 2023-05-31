@@ -15,4 +15,6 @@ public interface RoomMapper {
     RoomResponse roomToRoomResponse(Room room);
 
     List<Room> roomDocumentListToRoomList(List<RoomDocument> roomDocuments);
+
+    List<RoomResponse> roomListToRoomResponseList(List<Room> roomList);
 }

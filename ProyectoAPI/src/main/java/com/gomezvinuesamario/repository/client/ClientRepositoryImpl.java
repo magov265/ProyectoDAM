@@ -46,10 +46,8 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public Client updateClient(final Client client) {
-        if (Objects.nonNull(getClient(client.getCardId()))) {
-            return clientMapper.clientDocumentToClient(mongoClientRepository.save(clientMapper.clientToClientDocument(client)));
-        }
-        return null;
+        deleteClient(client.getCardId());
+        return clientMapper.clientDocumentToClient(mongoClientRepository.insert(clientMapper.clientToClientDocument(client)));
     }
 
     @Override
